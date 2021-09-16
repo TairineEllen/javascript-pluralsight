@@ -74,7 +74,23 @@ export function allPromises() {
   .catch(reason => setText(reason)); 
 }
 
-export function allSettled(){
+export function allSettled() {
+   let categories = axios.get('http://localhost:3000/itemCategories');
+   let statuses = axios.get('http://localhost:3000/orderStatuses');
+   let userTypes = axios.get('http://localhost:3000/userTypes');
+   let addressTypes = axios.get('http://localhost:3000/addressTypes'); 
+  
+   Promise.allSettled([categories, statuses, userTypes, addressTypes])
+   .then(values => {
+     let results = values.map(value => {
+       if (value.status === 'fulfilled') {
+         return `FULFILLED: ${JSON.stringify(value.value.data[0])} `;
+       }
+       return `REJECTED: ${value.reason.message} `;
+     });
+     setText(results);     
+   })
+   .catch(reason => setText(reason)); 
 }
 
 export function race(){
