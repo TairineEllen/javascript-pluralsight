@@ -55,7 +55,23 @@ export function xhr() {
     .catch(reason => setText(reason));
 }
 
-export function allPromises(){
+export function allPromises() {
+  /*all three are promises*/
+  let categories = axios.get('http://localhost:3000/itemCategories');
+  let statuses = axios.get('http://localhost:3000/orderStatuses');
+  let userTypes = axios.get('http://localhost:3000/userTypes');
+  let addressTypes = axios.get('http://localhost:3000/addressTypes');
+
+  /*will queue up all the promises, and wait until all return*/
+  Promise.all([categories, statuses, userTypes, addressTypes])
+  .then(([cat, sta, type, adr]) => {
+    setText('');
+    appendText(JSON.stringify(cat.data));
+    appendText(JSON.stringify(sta.data));
+    appendText(JSON.stringify(type.data));
+    appendText(JSON.stringify(adr.data));
+  })
+  .catch(reason => setText(reason)); 
 }
 
 export function allSettled(){
