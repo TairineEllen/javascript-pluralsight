@@ -8,13 +8,32 @@ export function timeout() {
       resolve('TimeOut!'); /*return value*/
     }, 1500);
   }); 
+  wait.then(text => setText(text));
+}
+
+export function interval() {
+  let counter = 0;
+  const wait = new Promise((resolve) => { 
+    setInterval(() => {
+      console.log('INTERVAL');
+      resolve(`Timeout! ${++counter}`); 
+    }, 1500);
+  }); 
   wait.then(text => setText(text))
+  .finally(() => appendText(`--Done ${counter}`));
 }
 
-export function interval(){
-}
-
-export function clearIntervalChain(){
+export function clearIntervalChain() {
+  let counter = 0;
+  let interval;
+  const wait = new Promise((resolve) => { 
+    interval = setInterval(() => {
+      console.log('INTERVAL');
+      resolve(`Timeout! ${++counter}`); 
+    }, 1500);
+  }); 
+  wait.then(text => setText(text))
+  .finally(() => clearInterval(interval));
 }
 
 export function xhr(){
