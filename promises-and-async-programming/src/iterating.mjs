@@ -22,7 +22,19 @@ export async function chain() {
   setText(`City: ${JSON.stringify(address.city)}`);
 }
 
-export function concurrent(){
+export async function concurrent() {
+  /*both API calls kick off at one time*/
+  const orderStatus = axios.get('http://localhost:3000/orderStatuses');
+  const orders = axios.get('http://localhost:3000/orders');
+
+  setText('');
+  /*awaiting the orderStatus first*/
+  const { data: statuses } = await orderStatus;
+  const { data: order } = await orders;
+  
+  appendText(JSON.stringify(statuses));
+  appendText(JSON.stringify(order[0]));
+
 }
 
 export function parallel(){
