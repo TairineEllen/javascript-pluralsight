@@ -26,6 +26,11 @@ function findOver1000() {
   let firstThousand = monthlySales.find(element => element > 1000);
   alert(firstThousand);
 }
+
+function resetNum() {
+  monthlySales.fill(0);
+  monthlySalesChart.update();
+}
 /*Bar Chart*/
 
 var monthlySalesChart = new Chart(chart, {
