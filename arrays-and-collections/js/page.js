@@ -4,7 +4,7 @@ let chart = document.getElementById('monthlySales').getContext('2d');
 let pieChart = document.getElementById('deptSales').getContext('2d');
 let yearlyLabel = document.getElementById('yearlyTotal');
 
-let monthlySales = Array.of(1200, 9000, 3000);
+let monthlySales = Array.of(500, 9000, 3000);
 let monthlyLabels = Array.of('Oct', 'Nov', 'Dec');
 
 let deptSales = Array.of(12, 9, 3);
@@ -21,6 +21,11 @@ let total = Array.of(addYearlyTotal(...octNums), addYearlyTotal(...novNums), add
 
 let yearlyTotal = addYearlyTotal(...total);
 yearlyLabel.innerHTML = `$${yearlyTotal}`;
+
+function findOver1000() {
+  let firstThousand = monthlySales.find(element => element > 1000);
+  alert(firstThousand);
+}
 /*Bar Chart*/
 
 var monthlySalesChart = new Chart(chart, {
