@@ -3,14 +3,25 @@
 let chart = document.getElementById('monthlySales').getContext('2d');
 let pieChart = document.getElementById('deptSales').getContext('2d');
 let yearlyLabel = document.getElementById('yearlyTotal');
+let newAmount = document.getElementById('itemAmount');
+let newMonth = document.getElementById('monthId');
 
-let monthlySales = Array.of(500, 9000, 3000, 1000);
-let monthlyLabels = Array.of('Oct', 'Nov', 'Dec');
+// let monthlySales = Array.of(500, 9000, 3000, 1000);
+// let monthlyLabels = Array.of('Oct', 'Nov', 'Dec');
 
-let deptSales = Array.of(12, 9, 3);
-let salesLabels = Array.of('Hiking', 'Running', 'Hunting');
+// let deptSales = Array.of(12, 9, 3);
+// let salesLabels = Array.of('Hiking', 'Running', 'Hunting');
 
 let yearlyTotal = 0;
+const monthlySales = new Set();
+const monthlyLabels = new Set();
+
+function addSale() {
+  monthlySales.add(newAmount.value);
+  monthlyLabels.add(newMonth.value);
+  alert(`You have entered in ${monthlySales.size} sales`);
+  console.log(monthlySales)
+}
 
 function addYearlyTotal(x) {
   yearlyTotal = yearlyTotal + x;
