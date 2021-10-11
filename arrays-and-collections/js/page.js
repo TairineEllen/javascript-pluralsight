@@ -18,11 +18,24 @@ const monthlyLabels = new Set();
 
 function addSale() {
   monthlySales.add(parseInt(newAmount.value));
-  monthlyLabels.add(parseInt(newMonth.value));
+  monthlyLabels.add(newMonth.value);
 
-  for (total of monthlySales) {
-    console.log(total);
+  yearlyTotal = 0;
+
+  monthlySalesChart.data.datasets.forEach(dataset => {
+    dataset.data = [];
+  })
+
+  for (let amount of monthlySales) {
+    yearlyTotal = amount + yearlyTotal;
+    yearlyLabel.innerHTML = yearlyTotal;
+
+    monthlySalesChart.data.datasets.forEach(dataset => {
+      dataset.data.push(amount)
+    })
   }
+  monthlySalesChart.data.labels = Array.from(monthlyLabels);
+  monthlySalesChart.update();
 }
 
 function deleteVal() {
@@ -31,11 +44,7 @@ function deleteVal() {
 }
 
 function addTotal() {
-  yearlyTotal = 0;
-  for (let amount of monthlySales) {
-    yearlyTotal = amount + yearlyTotal;
-    yearlyLabel.innerHTML = yearlyTotal;
-  }
+
 }
 
 function addYearlyTotal(x) {
@@ -64,10 +73,10 @@ function resetNum() {
 var monthlySalesChart = new Chart(chart, {
   type: 'bar',
   data: {
-    labels: monthlyLabels,
+    labels: [],
     datasets: [{
       label: '# of Sales',
-      data: monthlySales,
+      data: [],
       backgroundColor: [
         'rgba(238, 184, 104, 1)',
         'rgba(75, 166, 223, 1)',
