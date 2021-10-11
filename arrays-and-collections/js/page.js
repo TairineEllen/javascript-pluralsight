@@ -5,16 +5,18 @@ let pieChart = document.getElementById('deptSales').getContext('2d');
 let yearlyLabel = document.getElementById('yearlyTotal');
 let newAmount = document.getElementById('itemAmount');
 let newMonth = document.getElementById('monthId');
-
-// let monthlySales = Array.of(500, 9000, 3000, 1000);
-// let monthlyLabels = Array.of('Oct', 'Nov', 'Dec');
-
-// let deptSales = Array.of(12, 9, 3);
-// let salesLabels = Array.of('Hiking', 'Running', 'Hunting');
+let hikingRadio = document.getElementById('hiking');
+let runningRadio = document.getElementById('running');
+let huntingRadio = document.getElementById('hunting');
 
 let yearlyTotal = 0;
 const monthlySales = new Set();
 const monthlyLabels = new Set();
+const categories = new WeakSet();
+
+let hiking = { category: 'Hiking' };
+let running = { category: 'Running' };
+let hunting = { category: 'Hunting' }
 
 function addSale() {
   monthlySales.add(parseInt(newAmount.value));
@@ -36,15 +38,19 @@ function addSale() {
   }
   monthlySalesChart.data.labels = Array.from(monthlyLabels);
   monthlySalesChart.update();
+
+  if (hikingRadio.checked) {
+    categories.add(hiking);
+  } else if (runningRadio.checked) {
+    categories.add(running);
+  } else if (huntingRadio) {
+    categories.add(hunting);
+  }
 }
 
 function deleteVal() {
   monthlySales.delete('1500');
   console.log(monthlySales);
-}
-
-function addTotal() {
-
 }
 
 function addYearlyTotal(x) {
