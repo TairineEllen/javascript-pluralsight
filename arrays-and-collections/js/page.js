@@ -17,14 +17,25 @@ const monthlySales = new Set();
 const monthlyLabels = new Set();
 
 function addSale() {
-  monthlySales.add(newAmount.value);
-  monthlyLabels.add(newMonth.value);
-  alert(`You have entered in ${monthlySales.size} sales`);
+  monthlySales.add(parseInt(newAmount.value));
+  monthlyLabels.add(parseInt(newMonth.value));
+
+  for (total of monthlySales) {
+    console.log(total);
+  }
 }
 
 function deleteVal() {
   monthlySales.delete('1500');
   console.log(monthlySales);
+}
+
+function addTotal() {
+  yearlyTotal = 0;
+  for (let amount of monthlySales) {
+    yearlyTotal = amount + yearlyTotal;
+    yearlyLabel.innerHTML = yearlyTotal;
+  }
 }
 
 function addYearlyTotal(x) {
