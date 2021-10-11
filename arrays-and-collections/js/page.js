@@ -16,7 +16,7 @@ function addYearlyTotal(x) {
   yearlyTotal = yearlyTotal + x;
 }
 
-monthlySales.forEach(addYearlyTotal)
+monthlySales.forEach(addYearlyTotal);
 
 let octNums = Array.of(1200, 1000, 9000);
 let novNums = Array.of(1100, 2000, 9000);
