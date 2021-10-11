@@ -20,7 +20,11 @@ function addSale() {
   monthlySales.add(newAmount.value);
   monthlyLabels.add(newMonth.value);
   alert(`You have entered in ${monthlySales.size} sales`);
-  console.log(monthlySales)
+}
+
+function deleteVal() {
+  monthlySales.delete('1500');
+  console.log(monthlySales);
 }
 
 function addYearlyTotal(x) {
