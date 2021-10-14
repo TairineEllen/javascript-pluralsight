@@ -47,7 +47,7 @@ readline.on('line', async line => {
         });
       }
 
-      async function displayCalories(servingSize, food) {
+      async function displayCalories(servingSize = 1, food) {
         const calories = food.calories;
         console.log(`${food.name} with a serving size of ${servingSize} has a ${Number.parseFloat(calories * parseInt(servingSize, 10)).toFixed()} calories`);
         const { data } = await axios.get('http://localhost:3001/users/1');
@@ -98,11 +98,16 @@ readline.on('line', async line => {
         function* getFoodLog() {
           yield* foodLog;
         }
-        for (const entry of getFoodLog()) {
+        const logIterator = getFoodLog();
+        for (const entry of logIterator) {
           const timeStamp = Object.keys(entry)[0];
           if (isToday(new Date(Number(timeStamp)))) {
             console.log(`${entry[timeStamp].food}, ${entry[timeStamp].servingSize} serving(s)`);
             totalCalories += entry[timeStamp].calories;
+            if (totalCalories >= 12000) {
+              console.log(`Impressive! You've reached 12,000 calories.`);
+              logIterator.return();
+            }
           }
         }
         console.log('-----------------------');
