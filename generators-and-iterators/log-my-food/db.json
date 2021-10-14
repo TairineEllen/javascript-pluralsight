@@ -122,6 +122,13 @@
             "servingSize": "2",
             "calories": 176
           }
+        },
+        {
+          "1634223877995": {
+            "food": "apple",
+            "servingSize": "2",
+            "calories": 176
+          }
         }
       ]
     }
