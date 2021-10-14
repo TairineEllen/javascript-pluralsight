@@ -19,15 +19,11 @@ readline.on('line', async line => {
             yield veganOnly[i];
             i++;
           }
-
         }
-
-
         for (let val of listVeganFoods()) {
           console.log(val.name);
         }
         readline.prompt();
-
       }
       break;
     case 'log':
@@ -35,44 +31,19 @@ readline.on('line', async line => {
       const it = data[Symbol.iterator]();
       let actionIt;
 
-      const actionIterator = {
-        [Symbol.iterator]() {
-          let positions = [...this.actions];
-          return {
-            [Symbol.iterator]() {
-              return this;
-            },
-            next(...args) {
-              if (positions.length > 0) {
-                const position = positions.shift();
-                const result = position(...args);
+      function* actionGenerator() {
+        const food = yield;
+        const servingSize = yield askForServingSize();
+        yield displayCalories(servingSize, food);
+      }
 
-                return { value: result, done: false };
-              } else {
-                return { done: true };
-              }
-            },
-            return() {
-              positions = [];
-              return { done: true };
-            },
-            throw(error) {
-              console.log(error);
-              return { value: undefined, done: true };
-            }
-          }
-        },
-        actions: [askForServingSize, displayCalories],
-      };
-
-      function askForServingSize(food) {
+      function askForServingSize() {
         readline.question('How many servings did you eat? (as a decimal: 1, 0.5, 1.25, etc) ', servingSize => {
           if (servingSize === 'nevermind' || servingSize === 'n') {
             actionIt.return();
           } else {
-            actionIt.next(servingSize, food);
+            actionIt.next(servingSize);
           }
-
         });
       }
 
@@ -110,15 +81,14 @@ readline.on('line', async line => {
           const food = position.value.name;
           if (food === item) {
             console.log(`${item} has ${position.value.calories} calories`);
-            actionIt = actionIterator[Symbol.iterator]();
+            actionIt = actionGenerator();
+            actionIt.next();
             actionIt.next(position.value);
           }
           position = it.next();
         }
-
         readline.prompt();
       })
   }
-}
-)
+})
 
