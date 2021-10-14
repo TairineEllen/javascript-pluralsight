@@ -136,6 +136,27 @@
             "servingSize": "2",
             "calories": 460
           }
+        },
+        {
+          "1634241353218": {
+            "food": "apple",
+            "servingSize": "1",
+            "calories": 88
+          }
+        },
+        {
+          "1634241363960": {
+            "food": "almonds",
+            "servingSize": "2",
+            "calories": 328
+          }
+        },
+        {
+          "1634241429839": {
+            "food": "oreos",
+            "servingSize": "2",
+            "calories": 460
+          }
         }
       ]
     }
